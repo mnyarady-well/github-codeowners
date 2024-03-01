@@ -12,6 +12,7 @@ export const calcFileStats = (files: File[]): Stats => {
   };
 
   const ownerCount = new Map<string, Counters>();
+  const dirCount = new Map<string, Counters>();
 
   for (const file of files) {
     total.files++;
@@ -20,6 +21,12 @@ export const calcFileStats = (files: File[]): Stats => {
     if (file.owners.length < 1) {
       unloved.files++;
       unloved.lines += file.lines;
+
+      const dir = file.path.indexOf('/') >= 0 ? file.path.split('/')[0] : '!ROOT';
+      const dCount = dirCount.get(dir) || { files: 0, lines: 0 };
+      dCount.files++;
+      if(typeof file.lines === 'number') dCount.lines += file.lines;
+      dirCount.set(dir, dCount);
     } else {
       for (const owner of file.owners) {
         const counts = ownerCount.get(owner) || { files: 0, lines: 0 };
@@ -28,7 +35,7 @@ export const calcFileStats = (files: File[]): Stats => {
         ownerCount.set(owner, counts);
       }
     }
-  }
+}
 
   return {
     total,
@@ -41,6 +48,16 @@ export const calcFileStats = (files: File[]): Stats => {
       const counts = ownerCount.get(owner);
       return {
         owner,
+        counters: {
+          files: counts ? counts.files : 0,
+          lines: counts ? counts.lines : 0,
+        },
+      };
+    }),
+    directories: Array.from(dirCount.keys()).map((dir) => {
+      const counts = dirCount.get(dir);
+      return {
+        dir,
         counters: {
           files: counts ? counts.files : 0,
           lines: counts ? counts.lines : 0,

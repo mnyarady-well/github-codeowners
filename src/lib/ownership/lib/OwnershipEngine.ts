@@ -45,9 +45,13 @@ export class OwnershipEngine {
 
       const owned: FileOwnershipMatcher[] = [];
 
-      for (const line of lines) {
+      for (let line of lines) {
         if (!line || line.startsWith('#')) {
           continue;
+        }
+
+        if (line.indexOf('#') > 0) {
+          line = line.substring(0, line.indexOf('#')).trim();
         }
 
         owned.push(createMatcherCodeownersRule(line));

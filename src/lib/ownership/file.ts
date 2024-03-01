@@ -14,6 +14,10 @@ export const getFileOwnership = async (options: { codeowners: string, dir: strin
     filePaths = await readDirRecursively(options.dir, ['.git']);
   }
 
+  filePaths = filePaths.filter(f => f.indexOf('/core/') === -1);
+  filePaths = filePaths.filter(f => f.indexOf('/foundation/migrations') === -1);
+  filePaths = filePaths.filter(f => f.endsWith('.ts') || f.endsWith('.js') || f.endsWith('.jsx') || f.endsWith('.tsx'));
+
   if (options.root) { // We need to re-add the root so that later ops can find the file
     filePaths = filePaths.map(filePath => path.join(<string>options.root, filePath));
   }

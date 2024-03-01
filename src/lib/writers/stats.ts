@@ -1,10 +1,16 @@
 import { Stats } from '../stats';
 import { OUTPUT_FORMAT } from './types';
 
-export const writeStats = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream: any) => {
+export const writer = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream: any) => {
   const orderedOwners = [...stats.owners].sort((a, b) => {
     if (a.owner < b.owner) return -1;
     if (a.owner > b.owner) return 1;
+    return 0;
+  });
+
+  const orderedDirs = [...stats.directories].sort((a, b) => {
+    if (a.dir < b.dir) return -1;
+    if (a.dir > b.dir) return 1;
     return 0;
   });
 
@@ -20,6 +26,9 @@ export const writeStats = (stats: Stats, options: { output: OUTPUT_FORMAT }, str
       orderedOwners.forEach((owner) => {
         stream.write(`${owner.owner},${owner.counters.files},${owner.counters.lines}\n`);
       });
+      orderedDirs.forEach((dir) => {
+        stream.write(`${dir.dir},${dir.counters.files},${dir.counters.lines}\n`);
+      });
       break;
     default:
       stream.write('\n--- Counts ---\n');
@@ -29,6 +38,9 @@ export const writeStats = (stats: Stats, options: { output: OUTPUT_FORMAT }, str
       stream.write('--- Owners ---\n');
       const owners = orderedOwners.map(owner => `${owner.owner}: ${owner.counters.files} files (${owner.counters.lines} lines)`).join('\n');
       stream.write(`${owners}\n`);
+      stream.write('--- Owners ---\n');
+      const dirs = orderedDirs.map(dir => `${dir.dir}: ${dir.counters.files} files (${dir.counters.lines} lines)`).join('\n');
+      stream.write(`${dirs}\n`);
       break;
   }
 };

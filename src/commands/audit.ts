@@ -1,4 +1,4 @@
-import { OUTPUT_FORMAT, writeOwnedFile, writeStats } from '../lib/writers';
+import { OUTPUT_FORMAT, writeOwnedFile, writer } from '../lib/writers';
 import { calcFileStats } from '../lib/stats';
 import { getFileOwnership } from '../lib/ownership';
 
@@ -17,7 +17,7 @@ export const audit = async (options: AuditOptions) => {
 
   if (options.stats) {
     const stats = calcFileStats(files);
-    writeStats(stats, options, process.stdout);
+    writer(stats, options, process.stdout);
     return;
   }
 
