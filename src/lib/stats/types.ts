@@ -14,5 +14,6 @@ export interface Stats {
   loved: Counters;
   unloved: Counters;
   owners: { owner: string, counters: Counters }[];
-  directories: { dir: string, counters: Counters }[];
+  directoriesLoved: { dir: string, counters: Counters }[];
+  directoriesUnloved: { dir: string, counters: Counters }[];
 }

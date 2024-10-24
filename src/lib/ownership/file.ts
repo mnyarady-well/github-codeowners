@@ -22,11 +22,11 @@ export const getFileOwnership = async (options: { codeowners: string, dir: strin
   filePaths = filePaths.filter(f => f.endsWith('.ts') || f.endsWith('.js') || f.endsWith('.jsx') || f.endsWith('.tsx'));
   
   // Maximus
-  filePaths = filePaths.filter(f => f !== '.dependency-cruiser.js');
-  filePaths = filePaths.filter(f => !f.startsWith('codemods/'));
+  filePaths = filePaths.filter(f => f !== 'Maximus/.dependency-cruiser.js');
+  filePaths = filePaths.filter(f => !f.startsWith('Maximus/codemods/'));
   filePaths = filePaths.filter(f => f.indexOf('jest.config') === -1);
   filePaths = filePaths.filter(f => f.indexOf('jest.base') === -1);
-  filePaths = filePaths.filter(f => !f.startsWith('jest/'));
+  filePaths = filePaths.filter(f => !f.startsWith('Maximus/jest/'));
   filePaths = filePaths.filter(f => !f.endsWith('/index.ts'));
 
   // Gluteus
@@ -79,8 +79,8 @@ export const getFileOwnership = async (options: { codeowners: string, dir: strin
   filePaths = filePaths.filter(f => f.indexOf('migration/shared-imports.js') === -1);
   filePaths = filePaths.filter(f => f.indexOf('playwright.config.ts') === -1);
   filePaths = filePaths.filter(f => f.indexOf('plop/plopfile.js') === -1);
-  filePaths = filePaths.filter(f => !f.startsWith('static/'));
-  filePaths = filePaths.filter(f => !f.startsWith('webpack.'));
+  filePaths = filePaths.filter(f => !f.startsWith('FEnotype/static/'));
+  filePaths = filePaths.filter(f => !f.startsWith('FEnotype/webpack.'));
   filePaths = filePaths.filter(f => !f.endsWith('/index.js'));
   filePaths = filePaths.filter(f => !f.endsWith('/globals.js'));
 

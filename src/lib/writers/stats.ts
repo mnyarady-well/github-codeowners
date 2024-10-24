@@ -8,7 +8,13 @@ export const writer = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream:
     return 0;
   });
 
-  const orderedDirs = [...stats.directories].sort((a, b) => {
+  const orderedDirsLoved = [...stats.directoriesLoved].sort((a, b) => {
+    if (a.dir < b.dir) return -1;
+    if (a.dir > b.dir) return 1;
+    return 0;
+  });
+
+  const orderedDirsUnloved = [...stats.directoriesUnloved].sort((a, b) => {
     if (a.dir < b.dir) return -1;
     if (a.dir > b.dir) return 1;
     return 0;
@@ -26,7 +32,7 @@ export const writer = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream:
       orderedOwners.forEach((owner) => {
         stream.write(`${owner.owner},${owner.counters.files},${owner.counters.lines}\n`);
       });
-      orderedDirs.forEach((dir) => {
+      orderedDirsUnloved.forEach((dir) => {
         stream.write(`${dir.dir},${dir.counters.files},${dir.counters.lines}\n`);
       });
       break;
@@ -38,9 +44,12 @@ export const writer = (stats: Stats, options: { output: OUTPUT_FORMAT }, stream:
       stream.write('--- Owners ---\n');
       const owners = orderedOwners.map(owner => `${owner.owner}: ${owner.counters.files} files (${owner.counters.lines} lines)`).join('\n');
       stream.write(`${owners}\n`);
-      stream.write('--- Owners ---\n');
-      const dirs = orderedDirs.map(dir => `${dir.dir}: ${dir.counters.files} files (${dir.counters.lines} lines)`).join('\n');
-      stream.write(`${dirs}\n`);
+      stream.write('--- Directories Loved ---\n');
+      const dirLoved = orderedDirsLoved.map(dir => `${dir.dir}: ${dir.counters.files} files (${dir.counters.lines} lines)`).join('\n');
+      stream.write(`${dirLoved}\n`);
+      stream.write('--- Directories Unloved ---\n');
+      const dirUnloved = orderedDirsUnloved.map(dir => `${dir.dir}: ${dir.counters.files} files (${dir.counters.lines} lines)`).join('\n');
+      stream.write(`${dirUnloved}\n`);
       break;
   }
 };
