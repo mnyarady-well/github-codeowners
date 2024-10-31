@@ -47,58 +47,7 @@ export const getFileOwnership = async (options: {
   );
 
   // FEnotype
-  filePaths = filePaths.filter((f) => f.indexOf(".storybook/") === -1);
-  filePaths = filePaths.filter((f) => f.indexOf("cypress.config.js") === -1);
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/cypress/fixtures/") === -1
-  );
-  filePaths = filePaths.filter((f) => f.indexOf("DD-42.spec.js") === -1);
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/cypress/integration/dummy") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/cypress/support/") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/src/Constants/Forms.js") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/src/Gql/index.tsx") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/src/codegen.ts") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/static/js/polyfills.js") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/static/js/typeform.min.js") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/tests/setupRtl.js") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("WellApp/webpack.config.js") === -1
-  );
-  filePaths = filePaths.filter((f) => f.indexOf("cypress.config.js") === -1);
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("cypress/standalone/index.jsx") === -1
-  );
-  filePaths = filePaths.filter((f) => f.indexOf("eslint-local-rules") === -1);
-  filePaths = filePaths.filter((f) => f.indexOf("jest.base.js") === -1);
-  filePaths = filePaths.filter((f) => f.indexOf("jest.runAll.js") === -1);
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("lint-staged.config.js") === -1
-  );
-  filePaths = filePaths.filter(
-    (f) => f.indexOf("migration/shared-imports.js") === -1
-  );
-  filePaths = filePaths.filter((f) => f.indexOf("playwright.config.ts") === -1);
-  filePaths = filePaths.filter((f) => f.indexOf("plop/plopfile.js") === -1);
-  filePaths = filePaths.filter((f) => !f.startsWith("FEnotype/static/"));
-  filePaths = filePaths.filter((f) => !f.startsWith("FEnotype/webpack."));
-  filePaths = filePaths.filter((f) => !f.endsWith("/index.js"));
-  filePaths = filePaths.filter((f) => !f.endsWith("/globals.js"));
+  // Per Sr FE Engineers, putting all the files here in the SR FE team
 
   if (options.root) {
     // We need to re-add the root so that later ops can find the file
